@@ -1,13 +1,14 @@
 import Head from "next/head";
 import { Sarabun } from "@next/font/google";
 import r6Con from "../r6config/reg6.config.json";
+import clsx from "clsx";
 import MonthlyStat from "./MonthlyStat";
 import MonthAverage from "./MonthAverage";
 
-/* const sarabun = Sarabun({
+export const title_txt = Sarabun({
   subsets: ["latin"],
-  weight: ["300"],
-}); */
+  weight: ["100", "200", "300", "400"],
+});
 
 export default function Home() {
   return (
@@ -19,12 +20,29 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <h2 className="mt-5 text-xl text-center">{r6Con.header_txt}</h2>
+        <h2
+          className={clsx(
+            "mt-5 text-xl text-center font-sarabun font-semibold",
+            title_txt.className
+          )}
+        >
+          {r6Con.header_txt}
+        </h2>
       </div>
-      <div className="p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer ">
+      <div
+        className={clsx(
+          "p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer ",
+          title_txt.className
+        )}
+      >
         <MonthlyStat />
       </div>
-      <div className="p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer ">
+      <div
+        className={clsx(
+          "p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer ",
+          title_txt.className
+        )}
+      >
         <MonthAverage />
       </div>
     </>
