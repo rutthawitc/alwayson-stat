@@ -21,10 +21,10 @@ export default function Home() {
       <div>
         <h2 className="mt-5 text-xl text-center">{r6Con.header_txt}</h2>
       </div>
-      <div className="p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer sarabun.className">
+      <div className="p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer ">
         <MonthlyStat />
       </div>
-      <div className="p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer sarabun.className">
+      <div className="p-5 mt-5 ml-5 mr-5 border border-gray-400 rounded-sm cursor-pointer ">
         <MonthAverage />
       </div>
     </>

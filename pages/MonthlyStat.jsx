@@ -146,7 +146,9 @@ function MonthlyStat() {
   return (
     <div>
       <h2 className="font-semibold text-center font-lg">ประจำเดือน {month}</h2>
-      <h5 className="text-xs text-center">ข้อมูล ณ {loadDate[0]}</h5>
+      <h5 className="text-xs text-center">
+        ข้อมูล ณ {loadDate[0].substring(0, 10)}
+      </h5>
       <br />
       <Bar
         height={600}
