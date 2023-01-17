@@ -22,7 +22,7 @@ export default function Home() {
       <div>
         <h2
           className={clsx(
-            "max-w-md mx-auto bg-white rounded-md shadow-md overflow-hidden md:max-w-2xl text-center mb-8 pt-5 pb-3 ",
+            "max-w-2xl mx-auto bg-white rounded-md shadow-md overflow-hidden md:max-w text-center mb-8 pt-5 pb-3 lg:max-w-5xl",
             title_txt.className
           )}
         >
@@ -31,7 +31,7 @@ export default function Home() {
       </div>
       <div
         className={clsx(
-          "max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-3 pr-3 pl-3 pt-2",
+          "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-3 pr-3 pl-3 pt-2 lg:max-w-5xl",
           title_txt.className
         )}
       >
@@ -39,7 +39,7 @@ export default function Home() {
       </div>
       <div
         className={clsx(
-          "max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mt-5 pr-3 pl-3 pt-2",
+          "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-5 pr-3 pl-3 pt-2 lg:max-w-5xl",
           title_txt.className
         )}
       >
