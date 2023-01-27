@@ -1,10 +1,8 @@
 import React from "react";
 import useSWR from "swr";
 import { Bar } from "react-chartjs-2";
-import reg6Con from "../../r6config/reg6.config.json";
+import reg6Con from "../r6config/reg6.config.json";
 import SumArray from "@/utils/SumArray";
-import SumByKey from "@/utils/SumByKey";
-import CalculateSum from "@/utils/CalculateSum";
 
 import {
   Chart as ChartJS,
@@ -29,7 +27,7 @@ ChartJS.register(
 and return the result of a call to url in json format. */
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function MonthAverage() {
+function MonthlyStat() {
   //Set up SWR to run the fetcher function when calling "/api/staticdata"
   //There are 3 possible states: (1) loading when data is null (2) ready when the data is returned (3) error when there was an error fetching the data
   const { data, error } = useSWR("/api/staticdata", fetcher);
@@ -37,7 +35,7 @@ function MonthAverage() {
   if (error) return <div>Failed to load</div>;
   //Handle the loading state
   if (!data) return <div>Loading...</div>;
-
+  //console.log(data);
   //PWA Target From JSON File
   const target = reg6Con.r6target;
 
@@ -45,40 +43,15 @@ function MonthAverage() {
   const filecount = Object.keys(data).length;
   //console.log(filecount);
 
-  //------Re constract Data of json to one array--
-  // @param 'json_data' is a one array of all month data
-  //----------------------------------------------
-  const array_obj = [];
-  const json_data = [];
-  for (let i = filecount - 1; i >= 0; i--) {
-    array_obj[i] = data[i];
-    //* Re-Struct Json Array
-    Array.prototype.push.apply(json_data, array_obj[i]);
-  }
-  //console.log(json_data);
+  //----- Sum Data----
+  const suminv = SumArray(data[filecount - 1], "cnt_inv");
+  //console.log(suminv);
+  const sumother = SumArray(data[filecount - 1], "cnt_other");
+  //console.log(sumother);
 
-  //*-----------------------------------------------
-  //* Summary Data Function [Data of branch summary ]
-  //* The resualt is an array of sumdata (by branch)|
-  //*-----------------------------------------------
-  const res_other = SumByKey(json_data, "ba_code", "cnt_other");
-  const res_inv = SumByKey(json_data, "ba_code", "cnt_inv");
-  //console.log(res_other);
-  //console.log(res_inv);
-  //*------------- End Sum Function ----------------
-  //*-----------------------------------------------
-
-  //*------- Percent (%) Calculate-----------------
-  //*-- The Resualt is an array of % (by branch) --
-
-  const percent_result = res_other.map((item1) => {
-    const item2 = res_inv.find((i) => i.ba_code === item1.ba_code);
-    return {
-      ba_code: item1.ba_code,
-      value: ((item1.cnt_other * 100) / item2.cnt_inv).toFixed(2),
-    };
-  });
-  //console.log(percent_result);
+  //Calculate Reg6 Average %
+  const r6average = ((sumother * 100) / suminv).toFixed(2);
+  //console.log(r6average);
 
   //---Get Month Name---
   const date = new Date();
@@ -89,16 +62,18 @@ function MonthAverage() {
 
   // -----Setup Chart--------
   // Create Data Label  -----
-  const labels = data[0].map((jsondata) => jsondata.org_name);
+  //Get Data Date
+  const loadDate = data[filecount - 1].map((loadDate) => loadDate.data_date);
+  //console.log(loadDate[0]);
+
+  const labels = data[filecount - 1].map((jsondata) => jsondata.org_name);
   labels.push("ภาพรวมเขต");
   //console.log(labels);
 
-  //Map Data from array to ChartData Object.
-  const graphdat = percent_result.map((data) => data.value);
-  //----- Calculate for Reg6 Average Value
-  const suminv = CalculateSum(res_inv, "cnt_inv");
-  const sumother = CalculateSum(res_other, "cnt_other");
-  const r6average = ((sumother * 100) / suminv).toFixed(2);
+  //Map Data from Jason Data to ChartData Object.
+  const graphdat = data[filecount - 1].map((jsondata) =>
+    ((jsondata.cnt_other * 100) / jsondata.cnt_inv).toFixed(2)
+  );
   //Add Reg6 Average value to Data
   graphdat.push(r6average);
   //console.log(graphdat);
@@ -166,14 +141,13 @@ function MonthAverage() {
     },
   };
 
+  /* --------- Main Funtion ---------- */
+
   return (
     <div>
-      <h2 className="font-semibold text-center font-lg">
-        ข้อมูลเฉลี่ยย้อนหลัง {filecount} เดือน
-      </h2>
-      <h5 className="text-sm text-center">
-        ตั้งแต่ {reg6Con.start_month}
-        {month}
+      <h2 className="font-semibold text-center font-lg">ประจำเดือน {month}</h2>
+      <h5 className="text-xs text-center">
+        ข้อมูล ณ {loadDate[0].substring(0, 10)}
       </h5>
       <br />
       <Bar
@@ -187,4 +161,4 @@ function MonthAverage() {
   );
 }
 
-export default MonthAverage;
+export default MonthlyStat;
