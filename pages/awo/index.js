@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Sarabun } from "@next/font/google";
-import r6Con from "../r6config/reg6.config.json";
+import r6Con from "../../r6config/reg6.config.json";
 import clsx from "clsx";
 import MonthlyStat from "./MonthlyStat";
 import MonthAverage from "./MonthAverage";
@@ -39,7 +39,7 @@ export default function Home() {
       </div>
       <div
         className={clsx(
-          "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-5 pr-3 pl-3 pt-2 lg:max-w-5xl",
+          "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-5 mb-8 pr-3 pl-3 pt-2 lg:max-w-5xl",
           title_txt.className
         )}
       >
