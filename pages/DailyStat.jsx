@@ -27,10 +27,10 @@ ChartJS.register(
 and return the result of a call to url in json format. */
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function MonthlyStat() {
+function DailyStat() {
   //Set up SWR to run the fetcher function when calling "/api/staticdata"
   //There are 3 possible states: (1) loading when data is null (2) ready when the data is returned (3) error when there was an error fetching the data
-  const { data, error } = useSWR('/api/monthsdata', fetcher);
+  const { data, error } = useSWR('/api/dailydata', fetcher);
   //Handle the error state
   if (error) return <div>Failed to load</div>;
   //Handle the loading state
@@ -44,9 +44,9 @@ function MonthlyStat() {
   //console.log(filecount);
 
   //----- Sum Data----
-  const suminv = SumArray(data[filecount - 1], 'cnt_inv');
+  const suminv = SumArray(data, 'cnt_inv');
   //console.log(suminv);
-  const sumother = SumArray(data[filecount - 1], 'cnt_other');
+  const sumother = SumArray(data, 'cnt_other');
   //console.log(sumother);
 
   //Calculate Reg6 Average %
@@ -63,15 +63,15 @@ function MonthlyStat() {
   // -----Setup Chart--------
   // Create Data Label  -----
   //Get Data Date
-  const loadDate = data[filecount - 1].map((loadDate) => loadDate.data_date);
+  const loadDate = data.map((loadDate) => loadDate.data_date);
   //console.log(loadDate[0]);
 
-  const labels = data[filecount - 1].map((jsondata) => jsondata.org_name);
+  const labels = data.map((jsondata) => jsondata.org_name);
   labels.push('ภาพรวมเขต');
   //console.log(labels);
 
   //Map Data from Jason Data to ChartData Object.
-  const graphdat = data[filecount - 1].map((jsondata) =>
+  const graphdat = data.map((jsondata) =>
     ((jsondata.cnt_other * 100) / jsondata.cnt_inv).toFixed(2)
   );
   //Add Reg6 Average value to Data
@@ -161,4 +161,4 @@ function MonthlyStat() {
   );
 }
 
-export default MonthlyStat;
+export default DailyStat;

@@ -4,6 +4,7 @@ import r6Con from "../r6config/reg6.config.json";
 import clsx from "clsx";
 import MonthlyStat from "./MonthlyStat";
 import MonthAverage from "./MonthAverage";
+import DailyStat from "./DailyStat";
 
 export const title_txt = Sarabun({
   subsets: ["latin"],
@@ -29,14 +30,22 @@ export default function Home() {
           {r6Con.header_txt}
         </h2>
       </div>
-      <div
+            <div
+        className={clsx(
+          "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-5 mb-8 pr-3 pl-3 pt-2 lg:max-w-5xl",
+          title_txt.className
+        )}
+      >
+        <DailyStat />
+      </div>
+      {/* <div
         className={clsx(
           "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-3 pr-3 pl-3 pt-2 lg:max-w-5xl",
           title_txt.className
         )}
       >
         <MonthlyStat />
-      </div>
+      </div> */}
       <div
         className={clsx(
           "max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w mt-5 mb-8 pr-3 pl-3 pt-2 lg:max-w-5xl",
@@ -45,6 +54,7 @@ export default function Home() {
       >
         <MonthAverage />
       </div>
+
     </div>
   );
 }
