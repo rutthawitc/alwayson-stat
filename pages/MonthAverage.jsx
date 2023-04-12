@@ -15,6 +15,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import ExportToCsv from '@/utils/ExportToExcel';
 
 ChartJS.register(
   CategoryScale,
@@ -37,6 +38,7 @@ function MonthAverage() {
   if (error) return <div>Failed to load</div>;
   //Handle the loading state
   if (!data) return <div>Loading...</div>;
+  //console.log(data);
 
   //PWA Target From JSON File
   const target = reg6Con.r6target;
@@ -183,6 +185,10 @@ function MonthAverage() {
         options={options}
         plugins={[plugins]}
       />
+
+      <div className='flex justify-center items-center h-full mb-2 mt-2'>
+        <ExportToCsv data={json_data} filename='All-Months' />
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { Bar } from 'react-chartjs-2';
 import reg6Con from '../r6config/reg6.config.json';
 import SumArray from '@/utils/SumArray';
+import ExportToCsv from '@/utils/ExportToExcel';
 
 import {
   Chart as ChartJS,
@@ -35,7 +36,7 @@ function DailyStat() {
   if (error) return <div>Failed to load</div>;
   //Handle the loading state
   if (!data) return <div>Loading...</div>;
-  //console.log(data);
+  // console.log(data);
   //PWA Target From JSON File
   const target = reg6Con.r6target;
 
@@ -157,6 +158,9 @@ function DailyStat() {
         options={options}
         plugins={[plugins]}
       />
+      <div className='flex justify-center items-center h-full mb-2 mt-2'>
+        <ExportToCsv data={data} filename='daily-data' />
+      </div>
     </div>
   );
 }

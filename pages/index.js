@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Sarabun } from "@next/font/google";
 import r6Con from "../r6config/reg6.config.json";
 import clsx from "clsx";
-import MonthlyStat from "./MonthlyStat";
+// import MonthlyStat from "./MonthlyStat";
 import MonthAverage from "./MonthAverage";
 import DailyStat from "./DailyStat";
 
