@@ -5,6 +5,7 @@ import reg6Con from '../r6config/reg6.config.json';
 import SumArray from '@/utils/SumArray';
 import SumByKey from '@/utils/SumByKey';
 import CalculateSum from '@/utils/CalculateSum';
+import previousMonth from '@/utils/ThaiPrevMonth';
 
 import {
   Chart as ChartJS,
@@ -83,11 +84,18 @@ function MonthAverage() {
   //console.log(percent_result);
 
   //---Get Month Name---
-  const date = new Date();
-  const month = date.toLocaleDateString('th-TH', {
-    year: 'numeric',
-    month: 'long',
-  });
+  /*  const date = new Date();
+    const month = date.toLocaleDateString('th-TH', {
+      year: 'numeric',
+      month: 'long',
+    }); */
+
+  //ThaiPrevMonth
+  const prevMonth = previousMonth();
+  //console.log(PrevMonth);
+  //ThaiYear
+  const thaiYear = (new Date().getFullYear() + 543).toString();
+  //console.log(thaiYear);
 
   // -----Setup Chart--------
   // Create Data Label  -----
@@ -171,11 +179,12 @@ function MonthAverage() {
   return (
     <div>
       <h2 className='font-semibold text-center font-lg'>
-        ข้อมูลเฉลี่ยย้อนหลัง {filecount} เดือน
+        ข้อมูลสะสม {filecount} เดือน
       </h2>
       <h5 className='text-sm text-center'>
         ตั้งแต่ {reg6Con.start_month}
-        {month}
+        {/* {month} */}
+        {prevMonth} {thaiYear}
       </h5>
       <br />
       <Bar
