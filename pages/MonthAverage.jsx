@@ -184,7 +184,7 @@ function MonthAverage() {
       <h5 className='text-sm text-center'>
         ตั้งแต่ {reg6Con.start_month}
         {/* {month} */}
-        /* {prevMonth} {thaiYear} */
+        {/* {prevMonth} {thaiYear} */}
         {prevMonth} 2567
       </h5>
       <br />
